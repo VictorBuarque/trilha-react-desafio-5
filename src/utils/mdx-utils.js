@@ -11,13 +11,13 @@ export const getPosts = async () => {
 };
 
 //TODO: BUSCAR UM POST EM ESPECIFICO.
-export const getPostBySlug = async (slug) => {
+export const getPostBySlug = async (id) => {
   try {
-    const { data } = await api.get(`/posts/{slug}`);
-    console.log(slug);
+    const { data } = await api.get(`/posts/{id}`);
+    console.log(id);
     return data || {};
   } catch (error) {
-    console.error(`Error fetching post with slug ${slug}:`, error);
+    console.error(`Error fetching post with id ${id}:`, error);
     return {};
   }
 };

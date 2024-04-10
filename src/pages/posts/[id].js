@@ -16,7 +16,7 @@ const components = {
 
 export default function PostPage({ post, globalData }) {
   if (!post) {
-    return <p>Post não encontrado</p>;
+    return <p className='text-black text-lg'>404 - Post not Found</p>;
   }
 
   return (

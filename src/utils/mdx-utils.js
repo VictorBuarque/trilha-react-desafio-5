@@ -1,4 +1,5 @@
 import { api } from '../services/api';
+import supabase from '../config/supabaseClient';
 
 export const getPosts = async () => {
   try {
@@ -10,14 +11,32 @@ export const getPosts = async () => {
   }
 };
 
-//TODO: BUSCAR UM POST EM ESPECIFICO.
-export const getPostBySlug = async (id) => {
+export const getPostById = async (id) => {
   try {
-    const { data } = await api.get(`/posts/{id}`);
-    console.log(id);
-    return data || {};
+    let postId = id;
+
+    const { data: post } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (!post) {
+      postId = 1;
+    }
+
+    const { data: foundPost } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', postId)
+      .single();
+
+    return foundPost || {}; 
   } catch (error) {
     console.error(`Error fetching post with id ${id}:`, error);
-    return {};
+    return {}; // Em caso de erro, retornar um objeto vazio
   }
 };
+
+
+
